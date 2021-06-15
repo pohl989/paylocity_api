@@ -45,6 +45,8 @@ class PaylocityApi::Client
   def send_request(method, url, data, legacy: false)
     conn = if url == 'deduction'
       legacy_deduction_connection
+    elsif url == 'onboarding'
+      onboarding_connection
     elsif legacy
       legacy_connection
     else
@@ -130,7 +132,7 @@ class PaylocityApi::Client
   def onboarding_connection
     token = refresh_token!
     url = "#{ config.host }/weblinkstaging/companies/#{ config.company_id }/employees/newemployees"
-
+    puts url
     @onboarding_connection = Faraday.new(
       url: url,
       headers:  {

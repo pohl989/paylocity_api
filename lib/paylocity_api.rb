@@ -5,10 +5,9 @@ require 'paylocity_api/encryption'
 # require 'paylocity_api/payroll'
 require 'paylocity_api/collection'
 require 'paylocity_api/models/employee'
+require 'paylocity_api/models/onboarding'
 # require 'paylocity_api/models/earning'
 # require 'paylocity_api/models/deduction'
-
-require 'paylocity_api/models/onboarding'
 
 module PaylocityApi
   class Error < StandardError; end

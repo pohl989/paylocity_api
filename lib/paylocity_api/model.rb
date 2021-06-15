@@ -66,7 +66,7 @@ class PaylocityApi::Model
 
     def create(data)
       data.deep_transform_keys! { |x| x.to_s.camelize(:lower) }
-
+      puts "url: #{url}, data: #{data}"
       self.new(client.post("#{ url }", data, legacy: legacy))
     end
   end
