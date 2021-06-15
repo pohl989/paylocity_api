@@ -45,16 +45,14 @@ class PaylocityApi::Client
   def send_request(method, url, data, legacy: false)
     conn = if url == 'deduction'
       legacy_deduction_connection
-    elsif url == 'onboarding'
+    elsif url == 'newemployees'
       onboarding_connection
     elsif legacy
       legacy_connection
     else
       connection
     end
-
     body = config.encryption ? PaylocityApi::Encryption.encode(data) : data
-
     parse_response(conn.send(method, url.to_s) do |req|
       req.body = body.to_json
     end)
@@ -131,8 +129,10 @@ class PaylocityApi::Client
 
   def onboarding_connection
     token = refresh_token!
-    url = "#{ config.host }/weblinkstaging/companies/#{ config.company_id }/employees/newemployees"
-    puts url
+    # https://apisandbox.paylocity.com/api/v2/weblinkstaging/companies/S2222/employees/newemployees/onboarding
+    # https://apisandbox.paylocity.com/api/v2/weblinkstaging/companies/S2222/employees/newemployees
+    # https://apisandbox.paylocity.com/api/v2/weblinkstaging/companies/S2222/employees/newemployees
+    url = "#{ config.host }/weblinkstaging/companies/#{ config.company_id }/employees/"
     @onboarding_connection = Faraday.new(
       url: url,
       headers:  {
